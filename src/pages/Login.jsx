@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../firebase/firebase.init';
@@ -37,6 +37,27 @@ const Login = () => {
       console.log(error.message);
     });
 };
+
+const handleForgotPassword = (e)=>{
+   e.preventDefault();
+    const email =document.querySelector('input[type="email"]').value;
+       if (!email) {
+    alert("দয়া করে আগে আপনার ইমেলটি দিন।");
+    return;
+  }
+
+
+  sendPasswordResetEmail(auth,email)
+  .then(() => {
+      // ইমেল সফলভাবে পাঠানো হয়েছে
+      alert("আপনার ইমেলে পাসওয়ার্ড রিসেট লিঙ্ক পাঠানো হয়েছে। ইনবক্স চেক করুন!");
+    })
+    .catch((error) => {
+      console.error("Error:", error.message);
+      alert("কোনো সমস্যা হয়েছে: " + error.message);
+    });
+console.log("forget")
+}
   return (
    
       <div className="hero bg-base-200 min-h-screen">
@@ -49,7 +70,7 @@ const Login = () => {
               <input type="email" name="email" className="input" placeholder="Email" />
           <label className="label">Password</label>
               <input type="password" name="password" className="input" placeholder="Password" />        
-          <div><a className="link link-hover">Forgot password</a></div>
+          <div><a onClick={handleForgotPassword} className="link link-hover">Forgot password</a></div>
           <button className="btn btn-neutral mt-4">Login</button>
         </form>
         <button onClick={handleGoogleLogin} className="btn btn-outline mt-2 w-full">
