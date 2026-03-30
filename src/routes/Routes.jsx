@@ -8,6 +8,7 @@ import NewsDetails from "../pages/NewsDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
     // News Layout
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
       { path: "/auth/register", element: <Register /> },
     ],
   },
+  {
+    path: "*",
+    element: <NotFound />
+
+  }
 
 ])
 
