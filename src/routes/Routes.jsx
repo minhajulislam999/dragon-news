@@ -7,7 +7,7 @@ import CategoryNews from "../pages/CategoryNews";
 import NewsDetails from "../pages/NewsDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     // News Layout
@@ -19,14 +19,21 @@ const router = createBrowserRouter([
       { path: "/category/:id", element: <CategoryNews /> },
     ],
   },
+
+
   // News Details Layout
   {
-    path: "/news/:id",
-    element: <NewsDetailsLayout />,
-    children: [
-      { path: "/news/:id", element: <NewsDetails /> },
-    ],
-  },// Auth Layout
+  path: "/news/:id",
+  element: <NewsDetailsLayout />,
+  children: [
+    { 
+      path: "/news/:id", 
+      element: <PrivateRoute><NewsDetails /></PrivateRoute> 
+    },
+  ],
+},
+  
+  // Auth Layout
   {
     path: "/auth",
     element: <AuthLayout />,
