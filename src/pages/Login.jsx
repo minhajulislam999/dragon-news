@@ -2,8 +2,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../firebase/firebase.init';
-
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 const Login = () => {
+  const { googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
 
@@ -13,7 +15,7 @@ const Login = () => {
  
   const email = formData.get("email");
   const password = formData.get("password");
-  console.log(name, email, password);
+  // console.log(name email, password);
 
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
@@ -25,6 +27,16 @@ const Login = () => {
     });
 
   }
+  const handleGoogleLogin = () => {
+  googleLogin()
+    .then((result) => {
+      console.log(result.user);
+      navigate("/");
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
   return (
    
       <div className="hero bg-base-200 min-h-screen">
@@ -40,9 +52,13 @@ const Login = () => {
           <div><a className="link link-hover">Forgot password</a></div>
           <button className="btn btn-neutral mt-4">Login</button>
         </form>
+        <button onClick={handleGoogleLogin} className="btn btn-outline mt-2 w-full">
+  Google দিয়ে Login
+</button>
                   <div>
                   <Link to={"/auth/register"}>Register</Link>
                   </div>
+
 
       </div>
     </div>

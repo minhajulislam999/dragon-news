@@ -10,6 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const handleLogout =()=>{
+    
     signOut(auth)
     .then(()=>{
       console.log('logout successfully')
