@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const CategoryNews = () => {
   const [category, setCategory] = useState([]);
@@ -28,6 +28,7 @@ const CategoryNews = () => {
   <p className="text-center text-gray-500 text-xl mt-10">এই category-তে কোনো news নেই!</p>
   :
         category.map((news) => (
+          <Link to={`/news/${news._id}`} key={news._id}>
           <div key={news._id} className="flex gap-4 bg-white p-4 rounded-lg shadow-md">
             <img src={news.thumbnail_url} alt={news.title} className="w-48 h-32 object-cover rounded" />
             <div>
@@ -37,6 +38,7 @@ const CategoryNews = () => {
               <p className="text-yellow-500">⭐ {news.rating.number}</p>
             </div>
           </div>
+          </Link>
         ))
       }
     </div>
