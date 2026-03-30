@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const CategoryNews = () => {
   const [category, setCategory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -11,8 +12,17 @@ const CategoryNews = () => {
     .then((data) =>{
       console.log(data.data);
       setCategory(data.data);
+      setIsLoading(false);
     })
   }, [id]);
+
+  if (isLoading) {
+  return(
+    <div className="flex justify-center items-center mt-20">
+      <span className="loading loading-spinner loading-lg text-red-500"></span>
+    </div>
+  );
+}
   
   console.log("Current Category ID:", id);
 

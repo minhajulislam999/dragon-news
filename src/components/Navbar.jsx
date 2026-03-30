@@ -37,12 +37,20 @@ const Navbar = () => {
 
      
       {/* Auth Buttons */}
-<div className="flex gap-3">
+<div className="flex gap-3 items-center">
   {
     user ? 
-    <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-      Logout
-    </button>
+    <>
+      <img 
+        src={user.photoURL || "https://i.ibb.co/5GzXkwq/user.png"} 
+        alt="user" 
+        className="w-10 h-10 rounded-full"
+        title={user.displayName || user.email}
+      />
+      <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+        Logout
+      </button>
+    </>
     :
     <>
       <Link to="/auth/login" className="border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-500 hover:text-white">

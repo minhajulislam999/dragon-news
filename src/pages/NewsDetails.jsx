@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 const NewsDetails = () => {
 
   const [newsDetails, setNewsDetails] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
    
@@ -13,9 +14,17 @@ const NewsDetails = () => {
     .then((data) => {
       console.log(data.data);
       setNewsDetails(data.data);
+      setIsLoading(false);
     });
   }, []);
 
+  if (isLoading) {
+    return(
+      <div className="flex justify-center items-center mt-20">
+        <span className="loading loading-spinner loading-lg text-red-500"></span>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -27,7 +36,7 @@ const NewsDetails = () => {
           <p className="text-gray-500">✍️ {news.author.name}</p>
           <p className="text-gray-500">👁️ {news.total_view} views</p>
           <p className="text-yellow-500">⭐ {news.rating.number}</p>
-          
+
         </div>
       ))}
 
